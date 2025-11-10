@@ -27,21 +27,22 @@ const updateImage = (variantImage) => image.value = variantImage
   <div class="cart">Cart({{ cart }})</div>
   <div class="product-display">
     <div class="product-container">
-      <div class="product-image">    
+      <div class="product-image">
         <img v-bind:src="image">
       </div>
       <div class="product-info">
         <h1>{{ product }}</h1>
         <p v-if="inStock">In Stock</p>
-        <p v-else>Out of Stock</p>
+        <p v-else class="out-of-stock-img">Out of Stock</p>
         <ul>
           <li v-for="detail in details">{{ detail }}</li>
         </ul>
         <div v-for="variant in variants" 
           :key="variant.id"
           @mouseover="updateImage(variant.image)"
+             class="color-circle"
+             :style="{backgroundColor: variant.color}"
         >
-          {{ variant.color }}
         </div>
         <button class="button" v-on:click="addToCart">Add to cart</button>
       </div>

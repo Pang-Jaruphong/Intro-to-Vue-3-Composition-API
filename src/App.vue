@@ -29,7 +29,7 @@ const updateImage = (variantImage) => image.value = variantImage
   <div class="product-display">
     <div class="product-container">
       <div class="product-image">
-        <img v-bind:src="image">
+        <img v-bind:src="image" v-bind:class="{'out-of-stock-img' : !inStock}">
       </div>
       <div class="product-info">
         <h1>{{ product }}</h1>
@@ -46,7 +46,7 @@ const updateImage = (variantImage) => image.value = variantImage
         >
         </div>
         <button class="button" v-on:click="addToCart"
-        :class="{disableButton : !inStock}" :disabled="!inStock">Add to cart</button>
+        v-bind:class="{disableButton : !inStock}" :disabled="!inStock">Add to cart</button>
       </div>
     </div>
   </div>

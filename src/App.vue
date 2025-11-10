@@ -20,6 +20,7 @@ const addToCart = () => cart.value += 1
 
 const updateImage = (variantImage) => image.value = variantImage
 
+
 </script>
   
 <template>
@@ -44,7 +45,8 @@ const updateImage = (variantImage) => image.value = variantImage
              :style="{backgroundColor: variant.color}"
         >
         </div>
-        <button class="button" v-on:click="addToCart">Add to cart</button>
+        <button class="button" v-on:click="addToCart"
+        :class="{disableButton : !inStock}" :disabled="!inStock">Add to cart</button>
       </div>
     </div>
   </div>

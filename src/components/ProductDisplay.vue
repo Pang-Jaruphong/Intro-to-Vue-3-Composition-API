@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, defineEmits } from 'vue'
 import socksGreenImage from '@/assets/images/socks_green.jpeg'
 import socksBlueImage from '@/assets/images/socks_blue.jpeg'
 
@@ -18,7 +18,7 @@ const selectedVariant = ref(0)
 const details = ref(['50% cotton', '30% wool', '20% polyester'])
 
 const variants = ref([
-  { id: 2234, color: 'green', image: socksGreenImage, quantity: 50 },
+  { id: 2234, color: 'green', image: socksGreenImage, quantity: 10 },
   { id: 2235, color: 'blue', image: socksBlueImage, quantity: 0 },
 ])
 
@@ -43,13 +43,21 @@ const shipping = computed(() => {
   }
 })
 
-const addToCart = () => cart.value += 1
+const emit = defineEmits(["add-To-Cart"])
+
+const addToCart = () => {
+  const currentVariant = variants.value[selectedVariant.value]
+  if (currentVariant.quantity > 0) {
+    currentVariant.quantity -= 1
+    emit("add-To-Cart")
+  }
+}
 
 const updateVariant = (index) => {
   selectedVariant.value = index
 }
-</script>
 
+</script>
 <template>
   <div class="product-display">
     <div class="product-container">

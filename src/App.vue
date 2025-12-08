@@ -5,10 +5,12 @@ import ProductDisplay from '@/components/ProductDisplay.vue'
 const cart = ref(0)
 const premium = ref(true)
 
+const updateCart = () => cart.value += 1
+
 </script>
   
 <template>
   <div class="nav-bar"></div>
   <div class="cart">Cart({{ cart }})</div>
-  <ProductDisplay :premium="premium"></ProductDisplay>
+  <ProductDisplay :premium="premium" @addToCart = "updateCart"></ProductDisplay>
 </template>

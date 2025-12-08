@@ -2,6 +2,7 @@
 import {ref, computed } from "vue";
 import socksGreenImage from "@/assets/images/socks_green.jpeg";
 import socksBlueImage from "@/assets/images/socks_blue.jpeg";
+import productDetails from "./productDetails.vue"
 
 const product = ref('Socks')
 const brand = ref('Vue Mastery')
@@ -40,13 +41,12 @@ const props = defineProps({
   }
 })
 
-const shipping = computed({
-  if (this.premium)
-{
-  return "Free"
+const shipping = computed(() =>{
+  if (props.premium) {
+  return "Free";
 }
   return "5.90"
-}
+})
 </script>
 
 <template>
@@ -59,9 +59,11 @@ const shipping = computed({
         <h1>{{ title }}</h1>
         <p v-if="inStock">In Stock</p>
         <p v-else>Out of Stock</p>
-        <ul>
-          <li v-for="detail in details">{{ detail }}</li>
-        </ul>
+
+        <ProductDetails :details = "details"/>
+
+        <p>Shipping : {{ shipping }} </p>
+
         <div
             v-for="(variant, index) in variants"
             :key="variant.id"

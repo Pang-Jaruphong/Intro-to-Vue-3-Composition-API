@@ -4,13 +4,14 @@ import {reactive} from 'vue';
 const review = reactive({
   name: '',
   content :'',
-  rating: null
+  rating: null,
+  recommend: ""
 })
 
 const emit =defineEmits(['review-submitted'])
 
 const onSubmit = () => {
-  if (review.name === '' || review.content === '' || review.rating === null){
+  if (review.name === '' || review.content === '' || review.rating === null  || review.recommend === ''){
     alert('Veuillez remplir tous les champs');
   return;
   }
@@ -19,13 +20,15 @@ const onSubmit = () => {
   const productReview = {
     name : review.name,
     content : review.content,
-    rating : review.rating
+    rating : review.rating,
+    recommend : review.recommend
   }
   emit('review-submitted', productReview)
 
   review.name = '';
   review.content = '';
-  review.rating = null
+  review.rating = null;
+  review.recommend =''
   };
 
 </script>
@@ -46,7 +49,11 @@ const onSubmit = () => {
       <option>2</option>
       <option>1</option>
     </select>
-
+    <label for ="recommend"> Recommend this product? </label>
+    <select id ="recommend" v-model="review.recommend">
+      <option> Yes </option>
+      <option> No </option>
+    </select>
     <input class="button" type="submit" value="Submit">
   </form>
 </template>

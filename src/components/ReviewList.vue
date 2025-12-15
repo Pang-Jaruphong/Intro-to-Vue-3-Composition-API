@@ -16,6 +16,8 @@ defineProps({
         <span>{{review.name}} give this {{review.rating}} stars </span>
         <br/>
         <span>"{{ review.content}}" </span>
+        <br/>
+        <span> Recommend this product : {{review.recommend}}</span>
       </li>
     </ul>
   </div>

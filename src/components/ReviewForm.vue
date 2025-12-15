@@ -1,40 +1,32 @@
 <script setup>
-import {ref} from 'vue';
+import {reactive} from 'vue';
 
-const review = ref({
+const review = reactive({
   name: '',
   content :'',
   rating: null
 })
 
-const props = defineProps({
-  reviews : {
-    type : Array,
-    required :true
-  }
-})
-
 const emit =defineEmits(['review-submitted'])
 
-const addReview = {
-  name: review.value.name,
-  content: review.value.content,
-  rating: review.value.rating
-}
-
-emit('review-submitted', productReview)
-
 const onSubmit = () => {
-  if (review.value.name === '' || review.value.content === '' || review.value.rating === null){
+  if (review.name === '' || review.content === '' || review.rating === null){
     alert('Veuillez remplir tous les champs');
   return;
-}
-console.log('Avis soumis : ', review.value);
+  }
+  console.log('Avis soumis : ', review);
 
-review.value.name = '';
-review.value.content = '';
-review.value.rating = null
-};
+  const productReview = {
+    name : review.name,
+    content : review.content,
+    rating : review.rating
+  }
+  emit('review-submitted', productReview)
+
+  review.name = '';
+  review.content = '';
+  review.rating = null
+  };
 
 </script>
 <template>
@@ -57,14 +49,4 @@ review.value.rating = null
 
     <input class="button" type="submit" value="Submit">
   </form>
-  <div class="review-container">
-    <h3> Reviews : </h3>
-      <ul>
-        <li v-for = "(review, index) in reviews" :key="index">
-          {{review.name}} give this {{review.rating}} stars
-          <br/>
-          "{{ review.content}}"
-        </li>
-      </ul>
-  </div>
 </template>

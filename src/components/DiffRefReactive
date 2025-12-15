@@ -1,0 +1,39 @@
+<script setup>
+import { ref } from 'vue'; // 👈 On importe ref à la place
+
+// L'objet du formulaire est encapsulé dans une 'ref'
+const review = ref({
+  name: '',
+  content :'',
+  rating: null
+})
+
+const emit =defineEmits(['review-submitted'])
+
+const onSubmit = () => {
+  // 🎯 DIFFÉRENCE CLÉ ICI :
+  // On doit accéder à l'objet réel via 'review.value' dans le <script>
+  if (review.value.name === '' || review.value.content === '' || review.value.rating === null){
+    alert('Veuillez remplir tous les champs');
+    return;
+  }
+
+  console.log('Avis soumis : ', review.value);
+
+  const productReview = {
+    // On accède aux propriétés via 'review.value'
+    name : review.value.name,
+    content : review.value.content,
+    rating : review.value.rating
+  }
+  emit('review-submitted', productReview)
+
+  // Réinitialisation du formulaire : on réinitialise l'objet dans review.value
+  review.value.name = '';
+  review.value.content = '';
+  review.value.rating = null;
+};
+</script>
+
+Templete reste identique ref() accès avec .value
+reactive utilise uniquement pour déclarer (ou un array, map, set) et peut accéder directement
